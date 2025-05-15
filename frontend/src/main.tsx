@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { ApiProvider } from '@reduxjs/toolkit/query/react'
+import { generalApi } from '@/apis/general.api'
 import { SWRegister } from '@/components/SWRegister'
 import { Root } from '@/pages/Root'
 
@@ -10,7 +12,9 @@ const rootElement =
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <Root />
-    <SWRegister />
+    <ApiProvider api={generalApi}>
+      <Root />
+      <SWRegister />
+    </ApiProvider>
   </React.StrictMode>
 )

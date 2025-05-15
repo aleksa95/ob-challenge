@@ -2,18 +2,23 @@ import {
   withFormik,
   Form,
   Field,
-  // FormikComputedProps,
-  // FormikHelpers,
+  FormikComputedProps,
+  FormikHelpers,
+  FormikState,
 } from 'formik'
 import { FormFieldInput } from '@/components/FormFieldInput'
+import { useGetTokenBalancesQuery } from '@/apis/general.api'
 import { addressFormValidator } from './utils/addressFormValidator'
 import { AddressFormValues } from './types/AddressForm.types'
 
-// type Props = FormikComputedProps<AddressFormValues> &
-//   FormikHelpers<AddressFormValues>
+type Props = FormikComputedProps<AddressFormValues> &
+  FormikHelpers<AddressFormValues> &
+  FormikState<AddressFormValues>
 
-export const AddressFormInner = () => {
-  const fieldDisabled = false
+export const AddressFormInner = ({ isValid, values }: Props) => {
+  const { isFetching } = useGetTokenBalancesQuery(values.address, {
+    skip: !isValid || !values.address,
+  })
 
   return (
     <Form id="AddressForm" className="bg-form-bg rounded-lg p-10">
@@ -22,7 +27,7 @@ export const AddressFormInner = () => {
         id="address"
         component={FormFieldInput}
         placeholder="Enter your Ethereum address"
-        disabled={fieldDisabled}
+        disabled={isFetching}
       />
     </Form>
   )
