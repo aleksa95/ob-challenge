@@ -8,7 +8,7 @@ export const generalApi = createApi({
     getTokenBalances: builder.query<boolean, string>({
       queryFn: async (address) => {
         console.log('address', address)
-        await wait(10000)
+        await wait(1000)
 
         return {
           data: true,

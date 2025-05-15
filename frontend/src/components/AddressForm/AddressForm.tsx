@@ -6,19 +6,28 @@ import {
   FormikHelpers,
   FormikState,
 } from 'formik'
+import { useEffect } from 'react'
 import { FormFieldInput } from '@/components/FormFieldInput'
-import { useGetTokenBalancesQuery } from '@/apis/general.api'
 import { addressFormValidator } from './utils/addressFormValidator'
-import { AddressFormValues } from './types/AddressForm.types'
+import { AddressFormValues, AddressFormProps } from './types/AddressForm.types'
 
 type Props = FormikComputedProps<AddressFormValues> &
   FormikHelpers<AddressFormValues> &
-  FormikState<AddressFormValues>
+  FormikState<AddressFormValues> &
+  AddressFormProps
 
-export const AddressFormInner = ({ isValid, values }: Props) => {
-  const { isFetching } = useGetTokenBalancesQuery(values.address, {
-    skip: !isValid || !values.address,
-  })
+export const AddressFormInner = ({
+  isValid,
+  isValidating,
+  values,
+  setAddress,
+  isFetching,
+}: Props) => {
+  useEffect(() => {
+    if (isValid && !isValidating && values.address) {
+      setAddress(values.address)
+    }
+  }, [isValid, isValidating, values.address, setAddress])
 
   return (
     <Form id="AddressForm" className="bg-form-bg rounded-lg p-10">
@@ -33,7 +42,7 @@ export const AddressFormInner = ({ isValid, values }: Props) => {
   )
 }
 
-export const AddressForm = withFormik<object, AddressFormValues>({
+export const AddressForm = withFormik<AddressFormProps, AddressFormValues>({
   mapPropsToValues: () => ({
     address: '',
   }),
