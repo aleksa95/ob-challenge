@@ -1,8 +1,9 @@
-import { Alert } from '../Alert'
-import { EmptyState } from '../EmptyState'
+import { GetTokenBalancesResponse } from '@/apis/types/general.api.types'
+import { Alert } from '@/components/Alert'
+import { EmptyState } from '@/components/EmptyState'
 
 type Props = {
-  balances: boolean | undefined
+  balances: GetTokenBalancesResponse | undefined
   isFetching: boolean
   isError: boolean
 }
