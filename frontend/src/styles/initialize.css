@@ -9,6 +9,9 @@
   --color-alert-spinner-bg: #1A1D1F;
   --color-alert-spinner-border: #1A1D1F;
   --color-alert-text: #777E90;
+  /* Empty state */
+  --color-empty-state-subtitle: #777E90;
+  --color-empty-state-bg: #1A1D1F;
   /* Form input */
   --color-input-error-text: #F62120;
   --color-input-placeholder: #FFFFFF80;

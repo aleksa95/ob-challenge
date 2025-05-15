@@ -15,7 +15,7 @@ export const Root = () => {
   )
 
   return (
-    <div className="flex flex-1 grow items-start justify-center p-10 max-sm:items-start">
+    <div className="flex flex-1 grow items-start justify-center p-5 pt-10 max-sm:items-start">
       <div className="flex max-w-[550px] flex-1 grow flex-col gap-10">
         <div className="flex items-center gap-5 self-center">
           <img src={logo} alt="logo" className="h-[82px] w-[82px]" />
