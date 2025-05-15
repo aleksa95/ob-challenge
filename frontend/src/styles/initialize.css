@@ -3,10 +3,20 @@
 @import "tailwindcss";
 
 @theme {
+  /* Form input */
+  --color-input-error-text: #F62120;
+  --color-input-placeholder: #FFFFFF80;
+  --color-input-border-error: #F62120;
+  --color-input-border-error-hover: #cc5d5d;
+  --color-input-border: #313639;
+  --color-input-border-hover: #545d61;
+  --text-input-disabled-text: #FFFFFF80;
+  --color-input-bg: #11151D;
   /* Other */
+  --color-form-bg: #1A1D1F;
   --color-page-bg: #111315;
-  --font-title: "Roboto", "sans-serif";
-  --font-text: "Manrope", "sans-serif";
+  --font-title: "Poppins", "sans-serif";
+  --font-text: "Roboto", "sans-serif";
 }
 
 * {
