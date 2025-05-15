@@ -1,11 +1,12 @@
 import express from 'express'
-import { Address, createPublicClient, formatUnits, http, isAddress } from 'viem'
+import { type Address, createPublicClient, http, isAddress } from 'viem'
 import { mainnet } from 'viem/chains'
 
-import {
-  NATIVE_TOKEN,
-  NATIVE_TOKEN_DECIMALS,
-} from './constants/general.constants.js'
+import type { GetTokenBalanceFromChainResponse } from './types/general.types.js'
+
+import { TOKENS } from './constants/general.constants.js'
+import { getErc20TokenBalance } from './services/getErc20TokenBalance.js'
+import { getNativeTokenBalance } from './services/getNativeTokenBalance.js'
 
 const app = express()
 const port = '3000'
@@ -25,21 +26,41 @@ app.get('/api/balance/:address', async (req, res) => {
   try {
     const formattedAddress = address as Address
 
-    // Object to store token balances
-    const balances: Record<string, string> = {}
+    const promises: Promise<GetTokenBalanceFromChainResponse>[] = TOKENS.map(
+      (tokenConfig) => {
+        if (tokenConfig.type === 'native') {
+          return getNativeTokenBalance({
+            address: formattedAddress,
+            publicClient,
+            tokenConfig,
+          })
+        }
 
-    const nativeTokenBalance = await publicClient.getBalance({
-      address: formattedAddress,
-    })
+        return getErc20TokenBalance({
+          address: formattedAddress,
+          publicClient,
+          tokenConfig,
+        })
+      }
+    )
 
-    balances[NATIVE_TOKEN] = formatUnits(
-      nativeTokenBalance,
-      NATIVE_TOKEN_DECIMALS
-    ).toString()
+    const settledPromises = await Promise.allSettled(promises)
 
-    res.json({
-      balances,
-    })
+    const balances: Record<string, string> = settledPromises.reduce(
+      (acc, result) => {
+        if (result.status === 'fulfilled') {
+          return {
+            ...acc,
+            [result.value.symbol]: result.value.balance,
+          }
+        }
+
+        return acc
+      },
+      {}
+    )
+
+    res.json(balances)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Internal server error' })
