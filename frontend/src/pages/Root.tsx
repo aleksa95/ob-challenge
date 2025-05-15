@@ -7,9 +7,12 @@ import { useGetTokenBalancesQuery } from '../apis/general.api'
 export const Root = () => {
   const [address, setAddress] = useState('')
 
-  const { isFetching, currentData } = useGetTokenBalancesQuery(address, {
-    skip: !address,
-  })
+  const { isFetching, isError, currentData } = useGetTokenBalancesQuery(
+    address,
+    {
+      skip: !address,
+    }
+  )
 
   return (
     <div className="flex flex-1 grow items-start justify-center p-10 max-sm:items-start">
@@ -23,7 +26,11 @@ export const Root = () => {
 
         <div className="flex flex-col gap-5">
           <AddressForm setAddress={setAddress} isFetching={isFetching} />
-          <TokenBalances balances={currentData} />
+          <TokenBalances
+            balances={currentData}
+            isFetching={isFetching}
+            isError={isError}
+          />
         </div>
       </div>
     </div>

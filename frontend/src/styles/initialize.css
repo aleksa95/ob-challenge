@@ -3,6 +3,12 @@
 @import "tailwindcss";
 
 @theme {
+  /* Alert */
+  --color-alert-error-bg: #3D0E17B3;
+  --color-alert-error-border: #F61F1E;
+  --color-alert-spinner-bg: #1A1D1F;
+  --color-alert-spinner-border: #1A1D1F;
+  --color-alert-text: #777E90;
   /* Form input */
   --color-input-error-text: #F62120;
   --color-input-placeholder: #FFFFFF80;
@@ -13,6 +19,7 @@
   --color-input-disabled-text: #FFFFFF80;
   --color-input-bg: #11151D;
   /* Other */
+  --color-spinner-accent: #FFAB40;
   --color-form-bg: #1A1D1F;
   --color-page-bg: #111315;
   --font-title: "Poppins", "sans-serif";
