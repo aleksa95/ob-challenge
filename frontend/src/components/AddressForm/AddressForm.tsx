@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { FormFieldInput } from '@/components/FormFieldInput'
 import { addressFormValidator } from './utils/addressFormValidator'
 import { AddressFormValues, AddressFormProps } from './types/AddressForm.types'
+import { useInvalidateTokenBalancesMutation } from '../../apis/general.api'
 
 type Props = FormikComputedProps<AddressFormValues> &
   FormikHelpers<AddressFormValues> &
@@ -23,11 +24,16 @@ export const AddressFormInner = ({
   setAddress,
   isFetching,
 }: Props) => {
+  const [invalidate] = useInvalidateTokenBalancesMutation()
+
   useEffect(() => {
     if (isValid && !isValidating && values.address) {
       setAddress(values.address)
+    } else {
+      setAddress('')
+      invalidate(undefined).catch(console.error)
     }
-  }, [isValid, isValidating, values.address, setAddress])
+  }, [isValid, invalidate, isValidating, values.address, setAddress])
 
   return (
     <Form id="AddressForm" className="bg-form-bg rounded-lg p-10">

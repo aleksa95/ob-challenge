@@ -4,6 +4,7 @@ import { wait } from '@/utils/wait'
 export const generalApi = createApi({
   reducerPath: 'generalApi',
   baseQuery: fetchBaseQuery({ baseUrl: '' }),
+  tagTypes: ['TokenBalances'],
   endpoints: (builder) => ({
     getTokenBalances: builder.query<boolean, string>({
       queryFn: async (address) => {
@@ -14,8 +15,14 @@ export const generalApi = createApi({
           data: true,
         }
       },
+      providesTags: ['TokenBalances'],
+    }),
+    invalidateTokenBalances: builder.mutation({
+      queryFn: () => ({ data: null }),
+      invalidatesTags: ['TokenBalances'],
     }),
   }),
 })
 
-export const { useGetTokenBalancesQuery } = generalApi
+export const { useGetTokenBalancesQuery, useInvalidateTokenBalancesMutation } =
+  generalApi
