@@ -20,7 +20,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-tooltip": "^5.28.1",
-    "tailwindcss": "^4.1.6"
+    "tailwindcss": "^4.1.6",
+    "viem": "2.x"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.4",
