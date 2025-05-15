@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "express": "^5.1.0",
+    "node-cache": "^5.1.2",
     "viem": "2.x"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import express from 'express'
+import NodeCache from 'node-cache'
 import { type Address, createPublicClient, http, isAddress } from 'viem'
 import { mainnet } from 'viem/chains'
 
@@ -16,6 +17,8 @@ export const publicClient = createPublicClient({
   transport: http(),
 })
 
+const cache = new NodeCache({ checkperiod: 60, stdTTL: 60 })
+
 app.get('/api/balance/:address', async (req, res) => {
   const { address } = req.params
 
@@ -24,6 +27,12 @@ app.get('/api/balance/:address', async (req, res) => {
   }
 
   try {
+    const cachedData = cache.get(address)
+    if (cachedData) {
+      res.status(200).json(cachedData)
+      return
+    }
+
     const formattedAddress = address as Address
 
     const promises: Promise<GetTokenBalanceFromChainResponse>[] = TOKENS.map(
@@ -59,6 +68,8 @@ app.get('/api/balance/:address', async (req, res) => {
       },
       {}
     )
+
+    cache.set(address, balances)
 
     res.json(balances)
   } catch (error) {
