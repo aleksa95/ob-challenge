@@ -8,6 +8,7 @@ describe('formatBalance', () => {
     expect(formatBalance('0.0000123456')).toBe('0.00001234')
     expect(formatBalance('123456.001')).toBe('123,456.001')
     expect(formatBalance('123456.5556123')).toBe('123,456.5556')
+    expect(formatBalance('9233.137569166953608016')).toBe('9,233.1375')
   })
 
   it('Removes the decimal point if there are no decimals', () => {

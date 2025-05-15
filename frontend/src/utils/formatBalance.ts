@@ -19,17 +19,17 @@ export const formatBalance = (
   const decimalPart = numberString.split('.')[1]
 
   // Filter out zero digits from the decimal part
-  const nonZeroDecimalPart = decimalPart.replace(/0/g, '')
+  const nonLeadingZeroDecimalPart = decimalPart.replace(/^0+/, '')
 
   // Cut the intended amount from the nonZeroDecimals
-  const formattedNonZeroDecimal = nonZeroDecimalPart.slice(
+  const formattedNonZeroDecimal = nonLeadingZeroDecimalPart.slice(
     0,
     nonZeroDecimalsCount
   )
 
   // Replace the non zero decimals part with the formatted one
   const formattedDecimalPart = decimalPart.replace(
-    nonZeroDecimalPart,
+    nonLeadingZeroDecimalPart,
     formattedNonZeroDecimal
   )
 
