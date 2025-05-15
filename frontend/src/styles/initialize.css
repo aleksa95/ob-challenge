@@ -23,6 +23,7 @@
   --color-input-bg: #11151D;
   /* Other */
   --color-spinner-accent: #FFAB40;
+  --color-tooltip-bg: #FFAB40;
   --color-token-balance-bg: #1A1D1F;
   --color-form-bg: #1A1D1F;
   --color-page-bg: #111315;
@@ -32,6 +33,10 @@
 
 * {
   @apply box-border;
+}
+
+.react-tooltip {
+  @apply bg-tooltip-bg! rounded-lg;
 }
 
 body {

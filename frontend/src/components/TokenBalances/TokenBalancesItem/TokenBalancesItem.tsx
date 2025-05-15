@@ -1,5 +1,6 @@
 import { TOKEN_ICONS } from '@/constants/tokenIcons.constants'
 import { formatBalance } from '../../../utils/formatBalance'
+import { Tooltip } from '../../Tooltip'
 
 type Props = {
   token: string
@@ -16,9 +17,11 @@ export const TokenBalancesItem = ({ token, balance }: Props) => {
         <div className="text-xl font-bold text-white">{token}</div>
       </div>
 
-      <div className="text-xl font-bold text-white">
-        {formatBalance(balance)}
-      </div>
+      <Tooltip id={`${token}-${balance}`} content={balance}>
+        <div className="text-xl font-bold text-white">
+          {formatBalance(balance)}
+        </div>
+      </Tooltip>
     </div>
   )
 }
