@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["vite-plugin-pwa/client", "node", "vite/client"],
+    "baseUrl": "./",
+    "paths": {
+      "translate": ["src/translations/translate.ts"],
+      "@/*": ["src/*"],
+    }
+  },
+  "include": ["src", "./eslint.config.mjs", "vite.config.ts"],
+  "exclude": ["node_modules"],
+}
