@@ -18,7 +18,7 @@ Then navigate to: [https://localhost:5173/](https://localhost:5173/)
 
 ---
 
-### 📦 Production
+### 🚢 Production
 
 ```bash
 yarn build
