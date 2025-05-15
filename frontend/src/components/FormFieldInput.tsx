@@ -42,21 +42,21 @@ export const FormFieldInput = <FormValues,>({
 
   const inputClassNames = useMemo(() => {
     if (hasError) {
-      return 'border-input-border-error hover:border-input-border-error-hover focus:border-input-border-error-hover'
+      return 'border-input-border-error text-white hover:border-input-border-error-hover focus:border-input-border-error-hover'
     }
 
     if (disabled) {
-      return 'cursor-not-allowed text-input-disabled-text'
+      return 'cursor-not-allowed text-input-disabled-text border-input-border'
     }
 
-    return 'border-input-border hover:border-input-border-hover focus:border-input-border-hover'
+    return 'border-input-border text-white hover:border-input-border-hover focus:border-input-border-hover'
   }, [hasError, disabled])
 
   return (
     <div className="flex flex-col gap-1.5">
       <input
         {...field}
-        className={`bg-input-bg placeholder-input-placeholder font-text rounded-lg border-1 p-4 text-base text-white transition duration-300 ease-in-out outline-none ${inputClassNames}`}
+        className={`bg-input-bg placeholder-input-placeholder font-text rounded-lg border-1 p-4 text-base transition duration-300 ease-in-out outline-none ${inputClassNames}`}
         onChange={handleOnChange}
         id={id}
         placeholder={placeholder}
