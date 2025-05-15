@@ -81,6 +81,11 @@ app.get('/api/balance/:address', async (req, res) => {
       {}
     )
 
+    if (Object.keys(balances).length === 0) {
+      res.status(502).json({ error: 'Failed to get any token balance.' })
+      return
+    }
+
     cache.set(address, balances)
 
     res.json(balances)
