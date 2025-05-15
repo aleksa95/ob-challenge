@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 import NodeCache from 'node-cache'
 import { type Address, createPublicClient, http, isAddress } from 'viem'
@@ -11,6 +12,17 @@ import { getNativeTokenBalance } from './services/getNativeTokenBalance.js'
 
 const app = express()
 const port = '3000'
+
+app.use(
+  cors({
+    origin: [
+      'https://localhost:5173',
+      'http://127.0.0.1:5173',
+      'https://localhost:4173',
+      'https://127.0.0.1:4173',
+    ],
+  })
+)
 
 export const publicClient = createPublicClient({
   chain: mainnet,
