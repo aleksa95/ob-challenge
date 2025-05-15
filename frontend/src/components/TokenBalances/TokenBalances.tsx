@@ -1,6 +1,7 @@
 import { GetTokenBalancesResponse } from '@/apis/types/general.api.types'
 import { Alert } from '@/components/Alert'
 import { EmptyState } from '@/components/EmptyState'
+import { TokenBalancesItem } from './TokenBalancesItem/TokenBalancesItem'
 
 type Props = {
   balances: GetTokenBalancesResponse | undefined
@@ -17,7 +18,15 @@ export const TokenBalances = ({ balances, isFetching, isError }: Props) => (
     ) : isFetching ? (
       <Alert type="loader" message="Loading your token balances" />
     ) : balances ? (
-      <div>Has balances</div>
+      <div className="flex flex-col items-stretch gap-3">
+        {Object.keys(balances).map((token) => (
+          <TokenBalancesItem
+            key={token}
+            token={token}
+            balance={balances[token]}
+          />
+        ))}
+      </div>
     ) : (
       <EmptyState
         title="No balances loaded yet"
